@@ -8,6 +8,7 @@ authors = ["Antonio Pitasi <me@anto.pt>"]
 python = "^3.8"
 python-telegram-bot = "^12.6.1"
 requests = "^2.23.0"
+cachetools = "^4.1.0"
 
 [tool.poetry.dev-dependencies]
 

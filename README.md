@@ -28,14 +28,7 @@ $ TOKEN=1234-abcdef poetry run ./main.py
 
 PRs are welcome! They are pretty easy tasks.
 
-1. I'd like to add a LRU cache for usernames. Since the friend codes are not
-   supposed to change frequently, a long-lived cache can prevent tons of API
-   request.
-
-   Probably the entire database can easily fit in RAM :)
-
-
-2. I want users to be able to share their own friend code without having to
+1. I want users to be able to share their own friend code without having to
    write their username all the times.
 
    This can be implemented by having a small database containing a map 

@@ -4,6 +4,7 @@ import os
 import logging
 from uuid import uuid4
 import requests
+from cachetools import cached, TTLCache
 
 from telegram import InlineQueryResultArticle, ParseMode, \
     InputTextMessageContent
@@ -48,7 +49,7 @@ def inlinequery(update, context):
 
     results = [
         InlineQueryResultArticle(
-            id=uuid4(),
+            id=username,
             title=f"{username}'s friend code",
             input_message_content=InputTextMessageContent(
                 f'Friend code of <b>{username}</b>:\n<code>{code}</code>\n\n<i>Powered by <a href="https://nin.codes/{username}">nin.codes</a>.</i>',
@@ -59,6 +60,7 @@ def inlinequery(update, context):
     update.inline_query.answer(results)
 
 
+@cached(cache=TTLCache(maxsize=65536, ttl=86400))
 def fetch_friend_code(username: str):
     url = f"https://api.nin.codes/v1/{username}"
     res = requests.get(url)
@@ -67,6 +69,7 @@ def fetch_friend_code(username: str):
     except:
         return None
     return format_code(code)
+
 
 def format_code(code: str) -> str:
     return f"{code[:4]}-{code[4:8]}-{code[8:]}"
